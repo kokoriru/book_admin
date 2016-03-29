@@ -18,4 +18,12 @@ class Book < ActiveRecord::Base
       book.errors[:name] << "I don't like exercise."
     end
   end
+
+  # 本の名前に 'Cat' が含まれていた場合 'lovely Cat' という文字に置き換える
+  before_validation :add_lovely_to_cat
+  def add_lovely_to_cat
+    self.name = self.name.gsub(/Cat/) do |matched|
+      "lovely #{matched}"
+    end
+  end
 end
