@@ -7,7 +7,15 @@ class Book < ActiveRecord::Base
   has_many :book_authors
   has_many :authors, through: :book_authors
 
+  # 本に1文字以上15文字以内の名前が含まれていて、本の価格が¥0以上になっていること
   validates :name, presence: true
   validates :name, length: { maximum: 15 }
   validates :price, numericality: { greater_than_or_equal_to: 0 }
+
+  # 本の名前に 'exercise' が含まれているとバリデーションエラーを返す
+  validate do |book|
+    if book.name.include?("exercise")
+      book.errors[:name] << "I don't like exercise."
+    end
+  end
 end
