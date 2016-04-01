@@ -27,7 +27,18 @@ class Book < ActiveRecord::Base
     end
   end
 
+  # データ削除時に削除データをログに書き込む
   after_destroy do |book|
     Rails.logger.info "Book is deleted: #{book.attributes.inspect}"
+  end
+
+  # 高価な本データ削除時に警告ログを表示
+  def high_price?
+    price >= 5000
+  end
+
+  after_destroy :if => :high_price? do |book|
+    Rails.logger.warn "Book with high price is deleted: #{book.attributes.inspect}"
+    Rails.logger.warn "Please check!!"
   end
 end
