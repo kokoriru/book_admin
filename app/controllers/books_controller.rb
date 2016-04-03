@@ -7,6 +7,9 @@ class BooksController < ApplicationController
     end
   end
 
+  def edit
+  end
+
   private
 
   def set_book
