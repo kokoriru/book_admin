@@ -1,4 +1,4 @@
-<%= form_for @book, url: publisher_path(@book)do |f| %>
+<%= form_for @book, url: publisher_book_path(@publisher, @book)do |f| %>
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
